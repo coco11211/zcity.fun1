@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - ZCITY.FUN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000000;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            color: #b4b4b4;
+        }
+
+        /* Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #000000 0%, #1f0001 50%, #000000 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(163, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 50%);
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.4;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(163, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff0000;
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #b4b4b4;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            color: #ff0000;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow:
+                0 0 10px rgba(255, 0, 0, 0.8),
+                0 0 20px rgba(255, 0, 0, 0.6),
+                0 0 40px rgba(255, 0, 0, 0.4);
+        }
+
+        .about-section {
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.98));
+            border: 1px solid rgba(163, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow:
+                inset 0 0 25px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(163, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ff0000;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #cccccc;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: #ff0000;
+            font-weight: 600;
+        }
+
+        .game-modes {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .mode-tag {
+            background: rgba(163, 0, 0, 0.2);
+            border: 1px solid rgba(163, 0, 0, 0.5);
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(163, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            border-color: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(163, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: #dfdfdf;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(180, 180, 180, 0.4);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 7rem 1rem 2rem;
+            }
+
+            .about-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="scanline"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ZCITY</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">About Z-City</h1>
+
+        <div class="about-section">
+            <h2 class="section-title">Server Z-City</h2>
+            <div class="about-text">
+                <p>
+                    <span class="highlight">Z-City</span> is a server in the game Garry's Mod, with such modes as:
+                </p>
+                <div class="game-modes">
+                    <span class="mode-tag">Homicide</span>
+                    <span class="mode-tag">TDM</span>
+                    <span class="mode-tag">And more...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2 class="section-title">Features</h2>
+            <div class="about-text">
+                <p>The server features realistic body behavior, bleeding, ragdoll control, and a well-thought-out weapon system.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Realistic Physics</div>
+                    <div class="feature-desc">Authentic body behavior and ragdoll control</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🩸</div>
+                    <div class="feature-title">Bleeding System</div>
+                    <div class="feature-desc">Dynamic bleeding mechanics</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔫</div>
+                    <div class="feature-title">Weapon System</div>
+                    <div class="feature-desc">Well-thought-out weaponry</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Slower Gameplay</div>
+                    <div class="feature-desc">Strategic and tactical pace</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2 class="section-title">Evolution from Homigrad</h2>
+            <div class="about-text">
+                <p>
+                    Compared to its previous project, <span class="highlight">Homigrad</span>, Z-City differs both visually and mechanically. Gameplay on the server is also significantly slower than in Homigrad, offering a more tactical and immersive experience.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        ZCITY.FUN - The Next Generation Roleplay Experience
+    </footer>
+</body>
+</html>

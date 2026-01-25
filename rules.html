@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules - ZCITY.FUN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000000;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            color: #b4b4b4;
+        }
+
+        /* Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #000000 0%, #1f0001 50%, #000000 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(163, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 50%);
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.4;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(163, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff0000;
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #b4b4b4;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            color: #ff0000;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow:
+                0 0 10px rgba(255, 0, 0, 0.8),
+                0 0 20px rgba(255, 0, 0, 0.6),
+                0 0 40px rgba(255, 0, 0, 0.4);
+        }
+
+        .rules-section {
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.98));
+            border: 1px solid rgba(163, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow:
+                inset 0 0 25px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(163, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ff0000;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(163, 0, 0, 0.4);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .rules-list {
+            list-style: none;
+        }
+
+        .rules-list li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            padding: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            border-bottom: 1px solid rgba(163, 0, 0, 0.1);
+        }
+
+        .rules-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rules-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: #a30000;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(163, 0, 0, 0.8);
+        }
+
+        .sub-list {
+            margin-top: 0.5rem;
+            margin-left: 1rem;
+            list-style: none;
+        }
+
+        .sub-list li {
+            font-size: 1rem;
+            padding: 0.4rem 0;
+            padding-left: 1.2rem;
+            border-bottom: none;
+        }
+
+        .sub-list li::before {
+            width: 4px;
+            height: 4px;
+            background: #666;
+        }
+
+        .highlight {
+            color: #ff0000;
+            font-weight: 600;
+        }
+
+        .warning {
+            color: #ff6600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(180, 180, 180, 0.4);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 7rem 1rem 2rem;
+            }
+
+            .rules-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="scanline"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ZCITY</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rules.html" class="active">Rules</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">Server Rules</h1>
+
+        <div class="rules-section">
+            <h2 class="section-title">I. In-Game Rules</h2>
+            <ul class="rules-list">
+                <li><span class="highlight">Ignorance of the rules is no excuse.</span></li>
+                <li>Using cheats (third-party software that allows you to gain an advantage over other players) is punishable by a <span class="highlight">permanent ban</span>.</li>
+                <li>NSFW, NSFL, Nazi sprays are punishable by a <span class="highlight">permanent ban</span>.</li>
+                <li>If you find a bug, please report it in the dedicated Discord channel. If you don't want it to be seen, you can create a ticket. If you exploit the bug or keep it out of our sight intentionally, you may be <span class="warning">temporarily (1-7 days) banned</span> from the server.</li>
+                <li>Metagaming is not allowed and can be punished by a <span class="warning">temporary (3-7 days) ban</span>.</li>
+                <li>Don't be a dick, treat every other player with respect. You might get <span class="warning">temporarily (3-14 days) muted/gagged</span> if you go too far.</li>
+            </ul>
+        </div>
+
+        <div class="rules-section">
+            <h2 class="section-title">II. In-Game Chat Rules</h2>
+            <ul class="rules-list">
+                <li>
+                    Incitement to interethnic conflicts in chat or voice chat is punishable by a <span class="highlight">(3 days/permanent) mute/gag</span>.
+                    <ul class="sub-list">
+                        <li>Nazi statements.</li>
+                        <li>Hard-r n-words.</li>
+                        <li>Any other insults based on national characteristics.</li>
+                    </ul>
+                </li>
+                <li>This is a game server, don't discuss politics here, and if you incite others to do so, you could get your communications blocked <span class="warning">(1-7 days)</span> on the server.</li>
+                <li>Praising known terrorists or acts of terrorism will result in a <span class="highlight">permanent ban</span>.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        ZCITY.FUN - The Next Generation Roleplay Experience
+    </footer>
+</body>
+</html>
