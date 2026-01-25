@@ -354,6 +354,59 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
         }
 
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(163, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff0000;
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #b4b4b4;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
         /* Scanline Effect */
         .scanline {
             position: fixed;
@@ -398,6 +451,19 @@
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ZCITY</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Background Effects -->
     <div class="bg-animation"></div>
     <div class="grid-overlay"></div>
