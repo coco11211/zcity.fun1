@@ -437,6 +437,38 @@
             z-index: 10;
         }
 
+        /* Character Images */
+        .character-left {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            height: 85vh;
+            max-height: 700px;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));
+        }
+
+        .character-right {
+            position: fixed;
+            right: -50px;
+            bottom: 0;
+            height: 60vh;
+            max-height: 500px;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));
+        }
+
+        @media (max-width: 1200px) {
+            .character-left,
+            .character-right {
+                display: none;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .countdown {
@@ -514,6 +546,10 @@
             </div>
         </div>
     </div>
+
+    <!-- Character Images -->
+    <img src="images/citizen-left.png" alt="" class="character-left">
+    <img src="images/citizen-right.png" alt="" class="character-right">
 
     <p class="footer">ZCITY.FUN - Protected under American Law - ZCITY V2 - &copy; 2026</p>
 
