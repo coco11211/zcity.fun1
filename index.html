@@ -205,100 +205,6 @@
             }
         }
 
-        /* Countdown */
-        .countdown-wrapper {
-            margin-bottom: 3rem;
-        }
-
-        .countdown-label {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: #b4b4b4;
-            letter-spacing: 0.2em;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-        }
-
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: clamp(0.5rem, 3vw, 2rem);
-            flex-wrap: wrap;
-        }
-
-        .countdown-item {
-            background: linear-gradient(180deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.98));
-            border: 1px solid rgba(163, 0, 0, 0.4);
-            border-radius: 15px;
-            padding: clamp(1rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3rem);
-            min-width: clamp(80px, 20vw, 140px);
-            position: relative;
-            overflow: hidden;
-            box-shadow:
-                inset 0 0 25px rgba(0, 0, 0, 0.5),
-                0 0 20px rgba(163, 0, 0, 0.2);
-        }
-
-        .countdown-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #a30000, transparent);
-        }
-
-        .countdown-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(163, 0, 0, 0.05), transparent);
-            pointer-events: none;
-        }
-
-        .countdown-number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 700;
-            color: #dfdfdf;
-            line-height: 1;
-            text-shadow: 0 0 20px rgba(200, 0, 0, 0.4);
-        }
-
-        .countdown-unit {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: clamp(0.7rem, 2vw, 1rem);
-            color: #a30000;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-top: 0.5rem;
-        }
-
-        /* Target Date */
-        .target-date {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: #cccccc;
-            margin-bottom: 1rem;
-            letter-spacing: 0.1em;
-        }
-
-        .target-date span {
-            color: #ff0000;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
-        .target-time {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: #b4b4b4;
-            margin-bottom: 3rem;
-        }
-
         /* Server Info */
         .server-info {
             margin-top: 3rem;
@@ -507,32 +413,7 @@
         <h1 class="logo">ZCITY</h1>
         <p class="domain">.FUN</p>
 
-        <div class="coming-soon-badge">Coming Soon</div>
-
-        <div class="countdown-wrapper">
-            <p class="countdown-label">Launching In</p>
-            <div class="countdown" id="countdown">
-                <div class="countdown-item">
-                    <div class="countdown-number" id="days">00</div>
-                    <div class="countdown-unit">Days</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="hours">00</div>
-                    <div class="countdown-unit">Hours</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="minutes">00</div>
-                    <div class="countdown-unit">Minutes</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="seconds">00</div>
-                    <div class="countdown-unit">Seconds</div>
-                </div>
-            </div>
-        </div>
-
-        <p class="target-date">January <span>31</span>, 2026</p>
-        <p class="target-time">5:00 PM EST</p>
+        <div class="coming-soon-badge">We Are Live</div>
 
         <div class="server-info">
             <p class="server-address">Connect at <span>zcity.fun</span></p>
@@ -579,37 +460,8 @@
             }
         }
 
-        // Countdown Timer
-        function updateCountdown() {
-            // Target: January 31, 2026, 5:00 PM EST
-            // EST is UTC-5
-            const targetDate = new Date('2026-01-31T17:00:00-05:00');
-            const now = new Date();
-            const diff = targetDate - now;
-
-            if (diff <= 0) {
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                return;
-            }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        }
-
         // Initialize
         createParticles();
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
 
         // Add subtle mouse parallax effect
         document.addEventListener('mousemove', (e) => {
