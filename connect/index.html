@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect - ZCity US1</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0000;
+            color: #ccc;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* === BACKGROUND: diagonal red streaks === */
+        .bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            background: #0a0000;
+            overflow: hidden;
+        }
+
+        .bg::before,
+        .bg::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+        }
+
+        .bg::before {
+            background: repeating-linear-gradient(
+                -55deg,
+                transparent,
+                transparent 80px,
+                rgba(80, 0, 0, 0.08) 80px,
+                rgba(80, 0, 0, 0.08) 82px
+            );
+            animation: bgDrift 30s linear infinite;
+        }
+
+        .bg::after {
+            background: repeating-linear-gradient(
+                -55deg,
+                transparent,
+                transparent 120px,
+                rgba(120, 0, 0, 0.06) 120px,
+                rgba(120, 0, 0, 0.06) 123px
+            );
+            animation: bgDrift 45s linear infinite reverse;
+        }
+
+        @keyframes bgDrift {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(80px) translateY(80px); }
+        }
+
+        /* === CARD === */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: min(480px, 90vw);
+            background: rgba(18, 18, 18, 0.95);
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        /* === TITLE === */
+        .card-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-server {
+            font-size: 0.9rem;
+            color: #666;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+        }
+
+        /* === REDIRECT BANNER === */
+        .redirect-banner {
+            background: rgba(100, 0, 0, 0.25);
+            border: 1px solid rgba(150, 0, 0, 0.5);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #c00;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        .redirect-banner .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(200, 0, 0, 0.3);
+            border-top-color: #c00;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* === IP DISPLAY === */
+        .ip-label {
+            font-size: 0.8rem;
+            color: #555;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .ip-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #222;
+            border-radius: 4px;
+            padding: 0.9rem;
+            font-size: 1rem;
+            color: #bbb;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            user-select: all;
+        }
+
+        /* === BUTTONS === */
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid rgba(150, 0, 0, 0.6);
+            border-radius: 4px;
+            background: rgba(100, 0, 0, 0.25);
+            color: #c00;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: rgba(150, 0, 0, 0.35);
+            border-color: #c00;
+            box-shadow: 0 0 15px rgba(150, 0, 0, 0.3);
+        }
+
+        /* === COPIED TOAST === */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(18, 18, 18, 0.95);
+            border: 1px solid #400;
+            color: #c00;
+            padding: 0.7rem 1.5rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 500px) {
+            .card { padding: 2rem 1.5rem; }
+            .card-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+
+    <div class="card">
+        <h1 class="card-title">CONNECT</h1>
+        <p class="card-server">ZCity US1 - Virginia</p>
+
+        <!-- Auto-redirect banner -->
+        <div class="redirect-banner">
+            <span class="spinner"></span>
+            <span id="redirect-text">Redirecting to Steam in 3 seconds...</span>
+        </div>
+
+        <!-- IP display -->
+        <p class="ip-label">IP:</p>
+        <div class="ip-box" id="ip-box">163.123.204.210:27077</div>
+
+        <!-- Action buttons -->
+        <div class="btn-row">
+            <button class="btn" id="copy-btn" onclick="copyIP()">COPY</button>
+            <a class="btn" href="steam://connect/163.123.204.210:27077" id="connect-btn">CONNECT</a>
+        </div>
+    </div>
+
+    <!-- Copied toast notification -->
+    <div class="toast" id="toast">Copied to clipboard</div>
+
+    <script>
+        // Copy IP to clipboard
+        function copyIP() {
+            var ip = '163.123.204.210:27077';
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(ip);
+            } else {
+                var t = document.createElement('textarea');
+                t.value = ip;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand('copy');
+                document.body.removeChild(t);
+            }
+            var toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 2000);
+        }
+
+        // Countdown redirect to Steam
+        (function() {
+            var count = 3;
+            var el = document.getElementById('redirect-text');
+            var timer = setInterval(function() {
+                count--;
+                if (count <= 0) {
+                    clearInterval(timer);
+                    el.textContent = 'Redirecting to Steam...';
+                    window.location.href = 'steam://connect/163.123.204.210:27077';
+                } else {
+                    el.textContent = 'Redirecting to Steam in ' + count + ' seconds...';
+                }
+            }, 1000);
+        })();
+    </script>
+</body>
+</html>
